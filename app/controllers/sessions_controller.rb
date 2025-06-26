@@ -28,17 +28,19 @@ class SessionsController < ApplicationController
   end
 
   def current_user
-    if current_user
+    user = User.find(session[:user_id]) if session[:user_id]
+
+    if user
       render json: {
         user: {
-          id: current_user.id,
-          email: current_user.email,
-          voted: current_user.voted,
-          write_in_used: current_user.write_in_used
+          id: user.id,
+          email: user.email,
+          voted: user.voted,
+          write_in_used: user.write_in_used
         }
       }
     else
-      render json: { user: null }
+      render json: { user: nil }
     end
   end
 end

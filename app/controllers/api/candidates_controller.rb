@@ -1,6 +1,6 @@
 class Api::CandidatesController < ApplicationController
   def index
-    candidates = Candidates.recent.limit(10)
+    candidates = Candidate.recent.limit(10)
 
     render json: candidates.map { |c|
       {
@@ -12,7 +12,7 @@ class Api::CandidatesController < ApplicationController
   end
 
   def results
-    candidates = Candidates.by_votes.limit(10)
+    candidates = Candidate.by_votes.limit(10)
     total_votes = Vote.count
 
     render json: {
