@@ -1,5 +1,5 @@
 class Candidate < ApplicationRecord
-  validates :name, presence: true:, uniqueness: { case_sensitive: false }
+  validates :name, presence: true, uniqueness: { case_sensitive: false }
   validates :vote_count, presence: true, numericality: { greater_than_or_equal_to: 0 }
 
   has_many :votes, dependant: :destroy
