@@ -32,13 +32,27 @@ const ResultsPage = () => {
     }
 
     return (
-        <div className="max-w-4xl mx-auto">
-            <div className="bg-white rounded-lg shadow-lg p-6">
-                <h2 className="text-3xl font-bold text-center mb-6 text-gray-800">
+        <div
+            className="max-w-4xl mx-auto"
+            role="main"
+            aria-label="Voting Results Page"
+        >
+            <div
+                className="bg-white rounded-lg shadow-lg p-6"
+                aria-labelledby="results-heading"
+            >
+                <h2
+                    id="results-heading"
+                    className="text-3xl font-bold text-center mb-6 text-gray-800"
+                >
                     🏆 Festival Voting Results
                 </h2>
 
-                <div className="grid md:grid-cols-3 gap-4 mb-8">
+                <div
+                    className="grid md:grid-cols-3 gap-4 mb-8"
+                    role="region"
+                    aria-label="Voting statistics"
+                >
                     <div className="bg-blue-50 p-4 rounded-lg text-center">
                         <div className="text-2xl font-bold text-blue-600">
                             {results.total_votes}
@@ -60,16 +74,26 @@ const ResultsPage = () => {
                 </div>
 
                 {results.candidates.length === 0 ? (
-                    <div className="text-center py-8 text-gray-600">
+                    <div
+                        className="text-center py-8 text-gray-600"
+                        role="status"
+                        aria-live="polite"
+                    >
                         <p className="text-xl">No votes cast yet!</p>
                         <p>Be the first to vote for your favorite performer.</p>
                     </div>
                 ) : (
-                    <div className="space-y-4">
+                    <div
+                        className="space-y-4"
+                        role="list"
+                        aria-label="Candidates results list"
+                    >
                         {results.candidates.map((candidate, index) => (
                             <div
                                 key={candidate.id}
                                 className="border border-gray-200 rounded-lg p-4"
+                                role="listitem"
+                                aria-label={`Result for ${candidate.name}`}
                             >
                                 <div className="flex items-center justify-between mb-2">
                                     <div className="flex items-center space-x-3">
@@ -106,7 +130,14 @@ const ResultsPage = () => {
                                     </div>
                                 </div>
 
-                                <div className="w-full bg-gray-200 rounded-full h-3">
+                                <div
+                                    className="w-full bg-gray-200 rounded-full h-3"
+                                    aria-label={`Vote percentage bar for ${candidate.name}`}
+                                    role="progressbar"
+                                    aria-valuenow={candidate.percentage}
+                                    aria-valuemin={0}
+                                    aria-valuemax={100}
+                                >
                                     <div
                                         className={`h-3 rounded-full transition-all duration-500 ${
                                             index === 0
@@ -127,7 +158,10 @@ const ResultsPage = () => {
                     </div>
                 )}
 
-                <div className="text-center mt-6 text-sm text-gray-500">
+                <div
+                    className="text-center mt-6 text-sm text-gray-500"
+                    aria-live="polite"
+                >
                     Results update automatically every 10 seconds
                 </div>
             </div>

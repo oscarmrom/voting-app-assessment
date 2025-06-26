@@ -46,7 +46,11 @@ const VotingApp = () => {
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-purple-400 to-blue-600">
-            <nav className="bg-white shadow-lg">
+            <nav
+                className="bg-white shadow-lg"
+                role="navigation"
+                aria-label="Main navigation"
+            >
                 <div className="max-w-6xl mx-auto px-4">
                     <div className="flex justify-between items-center py-4">
                         <h1 className="text-2xl font-bold text-gray-800">
@@ -56,6 +60,7 @@ const VotingApp = () => {
                             <button
                                 onClick={() => setCurrentPage('results')}
                                 className="text-blue-600 hover:text-blue-800 font-medium"
+                                aria-label="View voting results"
                             >
                                 View Results
                             </button>
@@ -67,6 +72,7 @@ const VotingApp = () => {
                                     <button
                                         onClick={handleLogout}
                                         className="text-red-600 hover:text-red-800 font-medium"
+                                        aria-label="Logout"
                                     >
                                         Logout
                                     </button>
@@ -77,7 +83,11 @@ const VotingApp = () => {
                 </div>
             </nav>
 
-            <main className="container mx-auto px-4 py-8">
+            <main
+                className="container mx-auto px-4 py-8"
+                role="main"
+                aria-label="Voting app main content"
+            >
                 {currentPage === 'login' && !user && (
                     <LoginForm onLogin={handleLogin} />
                 )}

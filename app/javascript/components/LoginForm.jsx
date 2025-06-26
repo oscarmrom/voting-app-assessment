@@ -54,7 +54,11 @@ const LoginForm = ({ onLogin }) => {
             </h2>
 
             {error && (
-                <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+                <div
+                    className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4"
+                    role="alert"
+                    aria-live="assertive"
+                >
                     {error}
                 </div>
             )}
@@ -64,6 +68,7 @@ const LoginForm = ({ onLogin }) => {
                     <label
                         htmlFor="email"
                         className="block text-sm font-medium text-gray-700 mb-1"
+                        id="email-label"
                     >
                         Email Address *
                     </label>
@@ -76,6 +81,9 @@ const LoginForm = ({ onLogin }) => {
                         onChange={handleChange}
                         className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                         placeholder="your.email@example.com"
+                        aria-label="Email Address"
+                        aria-labelledby="email-label"
+                        autoComplete="email"
                     />
                 </div>
 
@@ -83,6 +91,7 @@ const LoginForm = ({ onLogin }) => {
                     <label
                         htmlFor="password"
                         className="block text-sm font-medium text-gray-700 mb-1"
+                        id="password-label"
                     >
                         Password *
                     </label>
@@ -95,8 +104,14 @@ const LoginForm = ({ onLogin }) => {
                         onChange={handleChange}
                         className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                         placeholder="Enter any password"
+                        aria-label="Password"
+                        aria-labelledby="password-label"
+                        autoComplete="current-password"
                     />
-                    <p className="text-xs text-gray-500 mt-1">
+                    <p
+                        className="text-xs text-gray-500 mt-1"
+                        id="password-desc"
+                    >
                         (Any password will work for this demo)
                     </p>
                 </div>
@@ -105,6 +120,7 @@ const LoginForm = ({ onLogin }) => {
                     <label
                         htmlFor="zip_code"
                         className="block text-sm font-medium text-gray-700 mb-1"
+                        id="zip-label"
                     >
                         Zip Code *
                     </label>
@@ -119,6 +135,10 @@ const LoginForm = ({ onLogin }) => {
                         placeholder="12345"
                         pattern="[0-9]{5}"
                         maxLength="5"
+                        aria-label="Zip Code"
+                        aria-labelledby="zip-label"
+                        inputMode="numeric"
+                        autoComplete="postal-code"
                     />
                 </div>
 
@@ -126,6 +146,8 @@ const LoginForm = ({ onLogin }) => {
                     type="submit"
                     disabled={loading}
                     className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                    aria-label="Sign in to vote"
+                    aria-busy={loading}
                 >
                     {loading ? 'Signing In...' : 'Sign In to Vote'}
                 </button>

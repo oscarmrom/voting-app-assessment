@@ -102,9 +102,15 @@ const VotingPage = ({ user, onUserUpdate }) => {
     }
 
     return (
-        <div className="max-w-4xl mx-auto">
-            <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
-                <h2 className="text-3xl font-bold text-center mb-2 text-gray-800">
+        <div className="max-w-4xl mx-auto" role="main" aria-label="Voting Page">
+            <div
+                className="bg-white rounded-lg shadow-lg p-6 mb-6"
+                aria-labelledby="vote-heading"
+            >
+                <h2
+                    id="vote-heading"
+                    className="text-3xl font-bold text-center mb-2 text-gray-800"
+                >
                     🎵 Vote for Your Favorite Performer
                 </h2>
                 <p className="text-center text-gray-600 mb-4">
@@ -114,10 +120,12 @@ const VotingPage = ({ user, onUserUpdate }) => {
                 {message && (
                     <div
                         className={`p-4 rounded-md mb-4 ${
-                            message.includes('✅')
+                            message.includes('\u2705')
                                 ? 'bg-green-100 border border-green-400 text-green-700'
                                 : 'bg-red-100 border border-red-400 text-red-700'
                         }`}
+                        role="alert"
+                        aria-live="assertive"
                     >
                         {message}
                     </div>
@@ -134,11 +142,17 @@ const VotingPage = ({ user, onUserUpdate }) => {
                     </div>
                 ) : (
                     <>
-                        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+                        <div
+                            className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6"
+                            role="list"
+                            aria-label="Candidates list"
+                        >
                             {candidates.map((candidate) => (
                                 <div
                                     key={candidate.id}
                                     className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow"
+                                    role="listitem"
+                                    aria-label={`Candidate ${candidate.name}`}
                                 >
                                     <h3 className="font-semibold text-lg mb-2 text-gray-800">
                                         {candidate.name}
@@ -150,6 +164,8 @@ const VotingPage = ({ user, onUserUpdate }) => {
                                         onClick={() => handleVote(candidate.id)}
                                         disabled={voting}
                                         className="w-full bg-purple-600 text-white py-2 px-4 rounded-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                                        aria-label={`Vote for ${candidate.name}`}
+                                        aria-busy={voting}
                                     >
                                         {voting
                                             ? 'Voting...'
@@ -178,8 +194,12 @@ const VotingPage = ({ user, onUserUpdate }) => {
                                     <form
                                         onSubmit={handleAddCandidate}
                                         className="max-w-md mx-auto"
+                                        aria-label="Add new performer form"
                                     >
-                                        <h3 className="font-semibold text-lg mb-4 text-center">
+                                        <h3
+                                            className="font-semibold text-lg mb-4 text-center"
+                                            id="add-performer-heading"
+                                        >
                                             Add New Performer
                                         </h3>
                                         <div className="space-y-4">
@@ -194,6 +214,8 @@ const VotingPage = ({ user, onUserUpdate }) => {
                                                 placeholder="Enter performer name"
                                                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
                                                 required
+                                                aria-label="Performer name"
+                                                aria-labelledby="add-performer-heading"
                                             />
                                             <div className="flex space-x-2">
                                                 <button
@@ -203,6 +225,8 @@ const VotingPage = ({ user, onUserUpdate }) => {
                                                         !newCandidateName.trim()
                                                     }
                                                     className="flex-1 bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                                                    aria-label="Add and vote for new performer"
+                                                    aria-busy={voting}
                                                 >
                                                     {voting
                                                         ? 'Adding...'
@@ -215,6 +239,7 @@ const VotingPage = ({ user, onUserUpdate }) => {
                                                         setNewCandidateName('');
                                                     }}
                                                     className="px-4 py-2 text-gray-600 border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors"
+                                                    aria-label="Cancel add performer"
                                                 >
                                                     Cancel
                                                 </button>
