@@ -1,10 +1,25 @@
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  # Defines the root path route ("/")
+  root "voting#index"
 
-  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
-  # Can be used by load balancers and uptime monitors to verify that the app is live.
+  post 'login', to: 'sessions#create'
+  delete 'logout', to: 'sessions#destroy'
+  get 'current_user', to: 'sessions#current_user'
+
+  get 'vote', to: 'voting#vote'
+  post 'cast_vote', to: 'voting#cast_vote'
+  post 'add_candidate', to: 'voting#add_candidate'
+
+  get 'results', to: 'voting#results'
+
+  namespace :api do
+    get 'candidates', to: 'candidates#index'
+    get 'results', to: 'candidates#results'
+  end
+
   get "up" => "rails/health#show", as: :rails_health_check
 
-  # Defines the root path route ("/")
-  root "home#index"
+  get '*path', to: 'voting#index', constraints: -> (request) do
+    !request.xhr? && request.format.html? && !request.path.start_with?('/api')
+  end
 end
