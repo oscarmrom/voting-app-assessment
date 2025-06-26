@@ -21,7 +21,7 @@ class Api::CandidatesController < ApplicationController
           id: c.id,
           name: c.name,
           vote_count: c.vote_count,
-          percentage: percentage_of_votes
+          percentage: percentage_of_votes(total_votes, c.vote_count)
         }
       },
       total_votes: total_votes,
@@ -31,7 +31,7 @@ class Api::CandidatesController < ApplicationController
 
   private
 
-  def percentage_of_votes
-    total_votes > 0 ? (c.vote_count.to_f / total_votes * 100).round(1) : 0
+  def percentage_of_votes(total_votes, vote_count)
+    total_votes > 0 ? (vote_count.to_f / total_votes * 100).round(1) : 0
   end
 end
