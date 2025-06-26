@@ -1,97 +1,69 @@
-# Voting app for interview exercises
+# Voting App – Submission README
 
-This Rails and React application is the starting point for our Voting app
-interview exercise. You may not need all the various files included to complete
-the assignment, but they are here in case they help you move faster! Please
-modify anything you need to in order to meet the requirements and show us your
-own approach.
+## 1. Code Access
 
-## Installation
+**GitHub Repo:** https://github.com/oscarmrom/voting-app-assessment
 
-Your development environment should have:
+---
 
-* Ruby v3.1.2
-* [Bundler](https://bundler.io/)
-* Node v20.18.2
-* Yarn v1.22.19
-* git
-* [SQLite3](https://www.sqlite.org/)
+## 2. How to Run or Test
 
-Initialize git, install the application, and initialize the database:
+This project uses the standard Rails + React on Rails scaffolding. To run or test the code:
 
-```sh
-# First, download the zip file, unzip the directory,
-# and navigate into the project directory. Then:
-git init
-git add .
-git commit -m "Initial files provided"
-bundle install
-bundle exec rake db:migrate
+1. **Install dependencies:**
+    - Ruby gems: `bundle install`
+    - JavaScript packages: `yarn install`
+2. **Set up the database:**
+    - `rails db:setup`
+3. **Start the development server:**
+    - `bin/dev` (or use `rails server` and `./bin/shakapacker-dev-server` separately)
+4. **Run tests:**
+    - Rails tests: `rails test`
 
-# Install JS packages, including React
-yarn install
-```
+No special setup is required beyond the standard Rails/React on Rails workflow.
 
-## Running the app
+## Problem Solving Approach
 
-```sh
-bundle exec rails server
-```
+I approached this as a time-boxed MVP, focusing on core functionality first and then adding polish. I completed the initial application setup independently, then leveraged AI tools (Cursor) to accelerate development and ensure I could deliver a complete, working solution within the 2-hour timeframe.
 
-Visit [http://localhost:3000](http://localhost:3000) in your browser
+---
 
-For asset live reloading, run:
-```sh
-./bin/shakapacker-dev-server
-```
+## Technical Decisions
 
-If the assets ever get out of sync, delete `/public/packs` and restart your
-Rails server (and your shakapacker-dev-server if it was running).
+-   Implemented simple session-based authentication (storing user_id in Rails session) rather than JWT/tokens to reduce complexity
+-   Used Tailwind CSS via CDN for rapid UI development
+-   Disabled CSRF protection for API endpoints to streamline AJAX requests in the time constraint
+-   Leveraged Rails' `find_or_create_by` with model callbacks for name normalization to handle duplicate candidates elegantly
 
-## Running tests
+---
 
-The included test suite uses Rspec and Capybara.
+## Product Assumptions
 
-Check out `spec/requests/` for example tests.
+-   Simplified "password" requirement to accept any input (as specified in requirements)
+-   Assumed single voting session per browser (session-based vs persistent login)
+-   Prioritized core voting functionality over edge cases like sophisticated duplicate detection
 
-```sh
-# Run all tests
-bundle exec rspec
+---
 
-# Run one test file
-bundle exec rspec <path/to/the/file.rb>
+## Rails/React Conventions
 
-# Run one test case inside a test file
-bundle exec rspec <path/to/the/file.rb>:<line_number>
-```
+-   Deliberately simplified error handling for time constraints
+-   Used React hooks pattern for state management instead of Redux (appropriate for app size)
+-   Followed Rails REST conventions for API endpoints
+-   Used standard React on Rails component registration pattern
 
-## Accessing the Rails console
+---
 
-```sh
-bundle exec rails console
-```
+## Future Improvements
 
-## Debugging
+-   Add comprehensive input validation and sanitization
+-   Implement fuzzy matching for candidate name duplicates
+-   Add proper authentication system
+-   Enhance accessibility compliance
+-   Add more comprehensive test coverage
 
-You can open up a debugging console by adding `binding.pry` anywhere in test or
-application code.
+---
 
-Example:
+## Deployment Note
 
-```rb
-def show
-  binding.pry
-  render json: { data: @my_object }, status: :ok
-end
-```
-
-In this example, when the `show` method is hit during click testing or a test,
-a debugger will open up in the terminal, where you can inspect values:
-
-```rb
-@my_object.id
-@my_object.valid?
-```
-
-Step to the next line with `next`. Resume regular code execution or tests with
-`continue`.
+I was able to successfully deploy the app to Fly.io. You can view the live application here: [https://music-voting-app.fly.dev/](https://music-voting-app.fly.dev/)
